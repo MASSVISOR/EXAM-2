@@ -1,52 +1,64 @@
-using System;
+﻿System.Console.Clear();    // очищаем консоль
 
-class Program
+int max = 3;        // максимальная длинна элементов
+
+string[] array1 = { "Hello", "2", "world", ":-)" };
+Solving(array1, max);
+
+string[] array2 = { "1234", "1567", "-2", "computer science" };
+Solving(array2, max);
+
+string[] array3 = { "Russia", "Denmark", "Kazan" };
+Solving(array3, max);
+
+// считаем количество элементов массива,длинна которых меньше и равна заданной
+int CountItems(string[] arr, int max)
 {
-    static void Main()
+    int count = 0;                                      // инициируем счетчик
+    for (int i = 0; i < arr.Length; i++)                // проверяем длинну элемента
     {
-        // Примеры массивов
-        string[] array1 = { "Hello", "2", "world", ":-)" };
-        string[] array2 = { "1234", "1567", "-2", "computer science" };
-        string[] array3 = { "Russia", "Denmark", "Kazan" };
-
-        // Вывод результатов для каждого массива
-        PrintFilteredArray(array1);
-        PrintFilteredArray(array2);
-        PrintFilteredArray(array3);
+        if (arr[i].Length <= max) count++;              // увеличиваем счетчик
     }
+    return count;                                       // возвращаем результат
+}
 
-    static string[] FilterShortStrings(string[] inputArray)
+// создаём новый массив и заполняем его элементами, длинна которых меньше заданной
+string[] NewArray(string[] arr, int max)
+{
+    int newArrayLenght = CountItems(arr, max);          // узнаем, сколько элементов массива меньше заданной длинны
+    string[] newArray = new string[newArrayLenght];     // создаем новый массив полученной длинны
+    int newArrayIndex = 0;                              // счетчик индексов нового массива
+    for (int i = 0; i < arr.Length; i++)                // перебираем исходный массив
     {
-        // Считаем количество строк длиной <= 3
-        int count = 0;
-        foreach (string str in inputArray)
+        if (arr[i].Length <= max)                       // проверяем, подходит ли элемент массива заданным условиям
         {
-            if (str.Length <= 3)
-            {
-                count++;
-            }
+            newArray[newArrayIndex] = arr[i];           // копируем элемент в новый массив
+            newArrayIndex++;                            // увеличиваем индекс
         }
-
-        // Создаем новый массив нужного размера
-        string[] result = new string[count];
-        int index = 0;
-
-        // Заполняем новый массив строками длиной <= 3
-        foreach (string str in inputArray)
-        {
-            if (str.Length <= 3)
-            {
-                result[index] = str;
-                index++;
-            }
-        }
-
-        return result;
     }
+    return newArray;                                    // возвращаем новый массив
+}
 
-    static void PrintFilteredArray(string[] array)
+// выводим массив в консоль в красивом формате
+void PrintArray(string[] array)
+{
+    System.Console.Write("[");
+    for (int i = 0; i < array.Length; i++)
     {
-        string[] filteredArray = FilterShortStrings(array);
-        Console.WriteLine("[" + string.Join(", ", filteredArray) + "]");
+        System.Console.Write('"');
+        System.Console.Write(array[i]);
+        System.Console.Write('"');
+        if (i < array.Length - 1) System.Console.Write(", ");
     }
+    System.Console.Write("]");
+}
+
+// выводим итоговый результат
+void Solving(string[] arr, int max)
+{
+    string[] newArray = NewArray(arr, max);
+    PrintArray(arr);
+    System.Console.Write(" → ");
+    PrintArray(newArray);
+    System.Console.WriteLine();
 }
