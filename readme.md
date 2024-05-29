@@ -25,4 +25,10 @@
 
 ![alt text](<diagram 2.png>)
 
+## Список коммитов
+![alt text](<Screenshot_3.png>)
+
+## Результат вывода в терминале
+![alt text](<Screenshot_1.png>)
+
 
